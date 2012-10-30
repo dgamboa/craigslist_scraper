@@ -17,10 +17,16 @@ class SearchResult
   private
 
   def new_posts
-    @all_posts = parsed_search
+    parsed_search.each { |link| @list << Post.new(link) }
   end
 
   def parsed_search
+    data = Nokogiri::HTML(open(@query))
+    all_posts = data.css('.row')
+    all_posts.css('a').select {|link| link['href'].length > 10}.map { |link| link['href'] }
   end
 
+end
+
+class Post
 end

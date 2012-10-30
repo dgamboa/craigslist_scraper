@@ -6,6 +6,7 @@ require 'open-uri'
 describe SearchResult do
 
   before(:each) do
+    Post.stub(:new).and_return('post object')
     @search_result = SearchResult.new('http://sfbay.craigslist.org/search/?areaID=1&subAreaID=&query=futon&catAbb=sss')
   end
 
@@ -19,41 +20,10 @@ describe SearchResult do
       @search_result.query.should == 'http://sfbay.craigslist.org/search/?areaID=1&subAreaID=&query=futon&catAbb=sss'
     end
 
-    it "creates an empty results array" do
-      @search_result.list.should == []
-    end
-
-    it "calls #new_posts" do
-      SearchResult.any_instance.should_receive(:new_posts)
-      SearchResult.new('http://sfbay.craigslist.org/search/?areaID=1&subAreaID=&query=futon&catAbb=sss')
+    it "returns a list of Post objects" do
+      @search_result.list.should_not be_empty
     end
 
   end
-
-  context "#new_posts" do
-
-    it "calls #parsed_search" do
-      SearchResult.any_instance.should_receive(:parsed_search)
-      SearchResult.new('http://sfbay.craigslist.org/search/?areaID=1&subAreaID=&query=futon&catAbb=sss')
-    end
-
-  end
-
-  context "#parsed_search" do
-
-    before(:each) do
-      @data = Nokogiri::HTML(open('http://sfbay.craigslist.org/search/?areaID=1&subAreaID=&query=futon&catAbb=sss'))
-
-      # @html = Net::HTTP.get(URI.parse('http://sfbay.craigslist.org/search/?areaID=1&subAreaID=&query=futon&catAbb=sss'))
-    #   FakeWeb.register_uri(:get, "http://sfbay.craigslist.org/search/?areaID=1&subAreaID=&query=futon&catAbb=sss")
-    end
-
-    it "returns a list of rows" do
-      # @all_posts = @data.css('.row')
-      @search_result.parsed_search.length.should == 100
-    end
-
-  end
-
 
 end
