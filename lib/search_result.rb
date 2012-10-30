@@ -22,8 +22,7 @@ class SearchResult
 
   def parsed_search
     data = Nokogiri::HTML(open(@query))
-    all_posts = data.css('.row')
-    all_posts.css('a').select {|link| link['href'].length > 10}.map { |link| link['href'] }
+    link_list = data.css('.row').map { |post| post.at_css('a') }
   end
 
 end

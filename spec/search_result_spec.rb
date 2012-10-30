@@ -21,7 +21,7 @@ describe SearchResult do
     end
 
     it "returns a list of Post objects" do
-      @search_result.list.should_not be_empty
+      @search_result.list.last.should == 'post object'
     end
 
   end
