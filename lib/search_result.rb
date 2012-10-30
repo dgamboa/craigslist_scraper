@@ -1,5 +1,6 @@
 require 'sqlite3'
 require 'nokogiri'
+require 'open-uri'
 require 'fakeweb'
 
 class SearchResult
@@ -22,10 +23,14 @@ class SearchResult
 
   def parsed_search
     data = Nokogiri::HTML(open(@query))
-    link_list = data.css('.row').map { |post| post.at_css('a') }
+    link_list = data.css('.row').map { |post| post.at_css('a')['href'] }
   end
 
 end
 
-class Post
-end
+
+search_result = SearchResult.new(ARGV[0])
+#the instructions say that the command line command should
+#return a nokogiri object (i.e. our 'data' variable).
+#this command works (commenting out 'Post.new'), but the example command line argument is 'clist_scraper'.
+#We may need to make a separate class for the command line.  I like our way better though.
