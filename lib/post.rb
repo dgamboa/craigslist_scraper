@@ -37,6 +37,3 @@ private
     @scraped_data.at_css(selector).text.strip
   end
 end #/END Post class
-
-my_post = Post.new('http://sfbay.craigslist.org/eby/apa/3312534802.html')
-puts my_post.category
