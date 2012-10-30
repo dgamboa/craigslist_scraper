@@ -1,9 +1,11 @@
 require 'sqlite3'
 require 'nokogiri'
 require 'open-uri'
+require_relative './db.rb'
 require_relative './post.rb'
 
 class SearchResult
+  include Database
 
   attr_reader :query_date, :query, :list
 
@@ -25,12 +27,11 @@ class SearchResult
     data = Nokogiri::HTML(open(@query))
     link_list = data.css('.row').map { |post| post.at_css('a')['href'] }
   end
-
 end
 
 
 search_result = SearchResult.new(ARGV[0])
-puts search_result.list.last
+search_result.list.last.date_posted.class
 #the instructions say that the command line command should
 #return a nokogiri object (i.e. our 'data' variable).
 #this command works (commenting out 'Post.new'), but the example command line argument is 'clist_scraper'.
