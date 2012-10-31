@@ -38,6 +38,21 @@ describe Post do
      my_post.category.should include ('apts/housing for rent')
     end
   end
+
+  context '#save' do
+
+    after(:each) do
+      db = SQLite3::Database.new("craigslist_scraper.db")
+      db.execute("delete from posts where url = 'http://sfbay.craigslist.org/eby/apa/3312534802.html'")
+    end
+
+    it "saves the post to a database" do
+      db = SQLite3::Database.new("craigslist_scraper.db")
+      my_post.save(1)
+      db.execute("select title from posts where url = 'http://sfbay.craigslist.org/eby/apa/3312534802.html'").should == [['San Pablo Home - Remodeled']]
+    end
+  end
+
 end #/END describe post
 
 

@@ -7,6 +7,7 @@ describe Result do
 
   before(:each) do
     Post.stub(:new).and_return('post object')
+    # @search_result.stub(:save)
     @search_result = Result.new('http://sfbay.craigslist.org/search/?areaID=1&subAreaID=&query=futon&catAbb=sss')
   end
 
