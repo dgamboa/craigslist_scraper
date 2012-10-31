@@ -3,17 +3,17 @@ require 'fakeweb'
 require 'nokogiri'
 require 'open-uri'
 
-describe SearchResult do
+describe Result do
 
   before(:each) do
     Post.stub(:new).and_return('post object')
-    @search_result = SearchResult.new('http://sfbay.craigslist.org/search/?areaID=1&subAreaID=&query=futon&catAbb=sss')
+    @search_result = Result.new('http://sfbay.craigslist.org/search/?areaID=1&subAreaID=&query=futon&catAbb=sss')
   end
 
   context ".initialize" do
 
     it "sets a query date/time" do
-      @search_result.query_date.day.should == Time.now.day
+      @search_result.created_at.day.should == Time.now.day
     end
 
     it "sets the query attribute to the search url" do

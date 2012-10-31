@@ -15,15 +15,15 @@ describe Post do
     end
   end
 
-  context "#posting_title" do
+  context "#title" do
     it "includes a text title" do
-      my_post.posting_title.should be_instance_of(String)
+      my_post.title.should be_instance_of(String)
     end
   end
 
-  context '#listing_price' do
+  context '#price' do
     it 'returns a dollar value' do
-     my_post.listing_price.should include ('$')
+     my_post.price.should include ('$')
     end
   end
 
