@@ -37,6 +37,7 @@ class Result
 
 end
 
+search_result = Result.new(ARGV[0])
 #the instructions say that the command line command should
 #return a nokogiri object (i.e. our 'data' variable).
 #this command works (commenting out 'Post.new'), but the example command line argument is 'clist_scraper'.
