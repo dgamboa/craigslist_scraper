@@ -35,15 +35,14 @@ class Post
 
   def save(result_id)
     db = SQLite3::Database.new("craigslist_scraper.db")
-    db.execute("insert into posts (date_posted, title, price, location, category, url, created_at, result_id) values ( ?, ?, ?, ?, ?, ?, ?, ?)", date_posted, title, price, location, category, @url, Time.now.to_s, result_id)
+    db.execute("insert into posts (date_posted, title, price, location, category, url, created_at, result_id) values
+    ( ?, ?, ?, ?, ?, ?, ?, ?)", date_posted, title, price, location, category, @url, Time.now.to_s, result_id)
   end
 
-private
+  private
 
   def sanitized_data(selector)
     @scraped_data.at_css(selector).text.strip
   end
-
-
 
 end #/END Post class
